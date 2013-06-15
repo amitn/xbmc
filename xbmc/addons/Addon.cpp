@@ -81,6 +81,7 @@ static const TypeMapping types[] =
    {"xbmc.gui.webinterface",             ADDON_WEB_INTERFACE,         199, "DefaultAddonWebSkin.png" },
    {"xbmc.addon.repository",             ADDON_REPOSITORY,          24011, "DefaultAddonRepository.png" },
    {"xbmc.pvrclient",                    ADDON_PVRDLL,              24019, "DefaultAddonPVRClient.png" },
+   {"xbmc.voipclient",                   ADDON_VOIPDLL,             24019, "DefaultAddonVOIPClient.png" },
    {"xbmc.addon.video",                  ADDON_VIDEO,                1037, "DefaultAddonVideo.png" },
    {"xbmc.addon.audio",                  ADDON_AUDIO,                1038, "DefaultAddonMusic.png" },
    {"xbmc.addon.image",                  ADDON_IMAGE,                1039, "DefaultAddonPicture.png" },
@@ -354,6 +355,9 @@ void CAddon::BuildLibName(const cp_extension_t *extension)
     case ADDON_PVRDLL:
       ext = ADDON_PVRDLL_EXT;
       break;
+	case ADDON_VOIPDLL:
+      ext = ADDON_VOIPDLL_EXT;
+      break;
     case ADDON_SCRIPT:
     case ADDON_SCRIPT_LIBRARY:
     case ADDON_SCRIPT_LYRICS:
@@ -390,6 +394,7 @@ void CAddon::BuildLibName(const cp_extension_t *extension)
       case ADDON_SCRAPER_TVSHOWS:
       case ADDON_SCRAPER_LIBRARY:
       case ADDON_PVRDLL:
+	  case ADDON_VOIPDLL:
       case ADDON_PLUGIN:
       case ADDON_SERVICE:
         {

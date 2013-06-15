@@ -23,6 +23,7 @@
 #include "AddonCallbacksAddon.h"
 #include "AddonCallbacksGUI.h"
 #include "AddonCallbacksPVR.h"
+#include "AddonCallbacksVOIP.h"
 #include "filesystem/SpecialProtocol.h"
 #include "utils/log.h"
 
@@ -45,6 +46,8 @@ CAddonCallbacks::CAddonCallbacks(CAddon* addon)
   m_callbacks->GUILib_UnRegisterMe   = CAddonCallbacks::GUILib_UnRegisterMe;
   m_callbacks->PVRLib_RegisterMe     = CAddonCallbacks::PVRLib_RegisterMe;
   m_callbacks->PVRLib_UnRegisterMe   = CAddonCallbacks::PVRLib_UnRegisterMe;
+  m_callbacks->VOIPLib_RegisterMe    = CAddonCallbacks::VOIPLib_RegisterMe;
+  m_callbacks->VOIPLib_UnRegisterMe  = CAddonCallbacks::VOIPLib_UnRegisterMe;
 }
 
 CAddonCallbacks::~CAddonCallbacks()
@@ -136,6 +139,32 @@ void CAddonCallbacks::PVRLib_UnRegisterMe(void *addonData, CB_PVRLib *cbTable)
 
   delete addon->m_helperPVR;
   addon->m_helperPVR = NULL;
+}
+
+CB_VOIPLib* CAddonCallbacks::VOIPLib_RegisterMe(void *addonData)
+{
+  CAddonCallbacks* addon = (CAddonCallbacks*) addonData;
+  if (addon == NULL)
+  {
+    CLog::Log(LOGERROR, "CAddonCallbacks - %s - called with a null pointer", __FUNCTION__);
+    return NULL;
+  }
+
+  addon->m_helperVOIP = new CAddonCallbacksVOIP(addon->m_addon);
+  return addon->m_helperVOIP->GetCallbacks();
+}
+
+void CAddonCallbacks::VOIPLib_UnRegisterMe(void *addonData, CB_VOIPLib *cbTable)
+{
+  CAddonCallbacks* addon = (CAddonCallbacks*) addonData;
+  if (addon == NULL)
+  {
+    CLog::Log(LOGERROR, "CAddonCallbacks - %s - called with a null pointer", __FUNCTION__);
+    return;
+  }
+
+  delete addon->m_helperVOIP;
+  addon->m_helperVOIP = NULL;
 }
 
 }; /* namespace ADDON */

@@ -40,6 +40,8 @@
 #include "DllPVRClient.h"
 #include "pvr/addons/PVRClient.h"
 #endif
+#include "DllVOIPClient.h"
+#include "voip/addons/VOIPClient.h"
 //#ifdef HAS_SCRAPERS
 #include "Scraper.h"
 //#endif
@@ -49,10 +51,12 @@
 #include "Service.h"
 #include "pvr/PVRManager.h"
 #include "pvr/addons/PVRClients.h"
+#include "voip/VOIPManager.h"
 #include "Util.h"
 
 using namespace std;
 using namespace PVR;
+using namespace VOIP;
 
 namespace ADDON
 {
@@ -114,6 +118,7 @@ AddonPtr CAddonMgr::Factory(const cp_extension_t *props)
       return AddonPtr(new CScraper(props));
     case ADDON_VIZ:
     case ADDON_SCREENSAVER:
+	case ADDON_VOIPDLL:
     case ADDON_PVRDLL:
       { // begin temporary platform handling for Dlls
         // ideally platforms issues will be handled by C-Pluff
@@ -156,6 +161,10 @@ AddonPtr CAddonMgr::Factory(const cp_extension_t *props)
 #ifdef HAS_PVRCLIENTS
           return AddonPtr(new CPVRClient(props));
 #endif
+        }
+		else if (type == ADDON_VOIPDLL)
+        {
+          return AddonPtr(new CVOIPClient(props));
         }
         else
           return AddonPtr(new CScreenSaver(props));
@@ -623,6 +632,8 @@ AddonPtr CAddonMgr::AddonFromProps(AddonProps& addonProps)
       return AddonPtr(new CAddonLibrary(addonProps));
     case ADDON_PVRDLL:
       return AddonPtr(new CPVRClient(addonProps));
+	case ADDON_VOIPDLL:
+      return AddonPtr(new CVOIPClient(addonProps));
     case ADDON_REPOSITORY:
       return AddonPtr(new CRepository(addonProps));
     default:

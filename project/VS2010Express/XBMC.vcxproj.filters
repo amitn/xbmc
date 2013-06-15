@@ -280,6 +280,18 @@
     <Filter Include="interfaces\python\test">
       <UniqueIdentifier>{0a84b5ee-2ad4-4ae2-9a8d-fc585c6d8aae}</UniqueIdentifier>
     </Filter>
+    <Filter Include="voip">
+      <UniqueIdentifier>{81c463b2-4be0-4976-a3b7-3476f3d5842f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="voip\addons">
+      <UniqueIdentifier>{45ab0aad-4930-433c-be58-61356f2061bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="voip\windows">
+      <UniqueIdentifier>{de4aa819-dd30-4353-acaf-866cfa7f9f05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="voip\dialogs">
+      <UniqueIdentifier>{4106e9e5-cf10-4e9d-bde8-36dcb14c52b8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\xbmc\win32\pch.cpp">
@@ -2959,6 +2971,19 @@
     </ClCompile>
     <ClCompile Include="..\..\xbmc\peripherals\bus\virtual\PeripheralBusCEC.cpp">
       <Filter>peripherals\bus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\video\FFmpegVideoDecoder.cpp" />
+    <ClCompile Include="..\..\xbmc\addons\AddonCallbacksVOIP.cpp">
+      <Filter>addons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\voip\VOIPManager.cpp">
+      <Filter>voip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\voip\addons\VOIPClient.cpp">
+      <Filter>voip\addons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\voip\addons\VOIPClientsManager.cpp">
+      <Filter>voip\addons</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -5778,6 +5803,23 @@
     </ClInclude>
     <ClInclude Include="..\..\xbmc\peripherals\bus\virtual\PeripheralBusCEC.h">
       <Filter>peripherals\bus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\music\karaoke\karaokevideobackground.h" />
+    <ClInclude Include="..\..\xbmc\video\FFmpegVideoDecoder.h" />
+    <ClInclude Include="..\..\xbmc\addons\AddonCallbacksVOIP.h">
+      <Filter>addons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\addons\DllVOIPClient.h">
+      <Filter>addons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\voip\VOIPManager.h">
+      <Filter>voip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\voip\addons\VOIPClient.h">
+      <Filter>voip\addons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\voip\addons\VOIPClientsManager.h">
+      <Filter>voip\addons</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

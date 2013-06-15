@@ -280,6 +280,9 @@
 #include "utils/XMLUtils.h"
 #include "addons/AddonInstaller.h"
 
+#include "voip/VOIPManager.h"
+#include "voip/addons/VOIPClientsManager.h"
+
 #ifdef HAS_PERFORMANCE_SAMPLE
 #include "utils/PerformanceSample.h"
 #else
@@ -358,6 +361,8 @@ using namespace ANNOUNCEMENT;
 using namespace PVR;
 using namespace EPG;
 using namespace PERIPHERALS;
+
+using namespace VOIP;
 
 using namespace XbmcThreads;
 
@@ -1357,6 +1362,8 @@ bool CApplication::Initialize()
     {
        g_passwordManager.CheckStartUpLock();
     }
+
+	g_VOIPManager.Start();
 
     // check if we should use the login screen
     if (g_settings.UsingLoginScreen())

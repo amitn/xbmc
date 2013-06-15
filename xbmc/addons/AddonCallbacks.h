@@ -21,6 +21,7 @@
 
 #include "cores/dvdplayer/DVDDemuxers/DVDDemuxUtils.h"
 #include "addons/include/xbmc_pvr_types.h"
+#include "addons/include/xbmc_voip_types.h"
 #include "../../addons/library.xbmc.addon/libXBMC_addon.h"
 #include "../../addons/library.xbmc.gui/libXBMC_gui.h"
 
@@ -254,12 +255,23 @@ typedef struct CB_PVRLib
 } CB_PVRLib;
 
 
+typedef void (*VOIPAddMenuHook)(void *addonData, VOIP_MENUHOOK *hook);
+
+typedef struct CB_VOIPLib
+{
+  VOIPAddMenuHook                AddMenuHook;
+
+} CB_VOIPLib;
+
+
 typedef CB_AddOnLib* (*XBMCAddOnLib_RegisterMe)(void *addonData);
 typedef void (*XBMCAddOnLib_UnRegisterMe)(void *addonData, CB_AddOnLib *cbTable);
 typedef CB_GUILib* (*XBMCGUILib_RegisterMe)(void *addonData);
 typedef void (*XBMCGUILib_UnRegisterMe)(void *addonData, CB_GUILib *cbTable);
 typedef CB_PVRLib* (*XBMCPVRLib_RegisterMe)(void *addonData);
 typedef void (*XBMCPVRLib_UnRegisterMe)(void *addonData, CB_PVRLib *cbTable);
+typedef CB_VOIPLib* (*XBMCVOIPLib_RegisterMe)(void *addonData);
+typedef void (*XBMCVOIPLib_UnRegisterMe)(void *addonData, CB_VOIPLib *cbTable);
 
 typedef struct AddonCB
 {
@@ -271,6 +283,8 @@ typedef struct AddonCB
   XBMCGUILib_UnRegisterMe    GUILib_UnRegisterMe;
   XBMCPVRLib_RegisterMe      PVRLib_RegisterMe;
   XBMCPVRLib_UnRegisterMe    PVRLib_UnRegisterMe;
+  XBMCVOIPLib_RegisterMe     VOIPLib_RegisterMe;
+  XBMCVOIPLib_UnRegisterMe   VOIPLib_UnRegisterMe;
 } AddonCB;
 
 
@@ -281,6 +295,7 @@ class CAddon;
 class CAddonCallbacksAddon;
 class CAddonCallbacksGUI;
 class CAddonCallbacksPVR;
+class CAddonCallbacksVOIP;
 
 class CAddonCallbacks
 {
@@ -293,19 +308,24 @@ public:
   static void AddOnLib_UnRegisterMe(void *addonData, CB_AddOnLib *cbTable);
   static CB_GUILib* GUILib_RegisterMe(void *addonData);
   static void GUILib_UnRegisterMe(void *addonData, CB_GUILib *cbTable);
+  
   static CB_PVRLib* PVRLib_RegisterMe(void *addonData);
   static void PVRLib_UnRegisterMe(void *addonData, CB_PVRLib *cbTable);
+  
+  static CB_VOIPLib* VOIPLib_RegisterMe(void *addonData);
+  static void VOIPLib_UnRegisterMe(void *addonData, CB_VOIPLib *cbTable);
 
   CAddonCallbacksAddon *GetHelperAddon() { return m_helperAddon; }
-  CAddonCallbacksGUI *GetHelperGUI() { return m_helperGUI; }
-  CAddonCallbacksPVR *GetHelperPVR() { return m_helperPVR; }
-
+  CAddonCallbacksGUI   *GetHelperGUI()   { return m_helperGUI; }
+  CAddonCallbacksPVR   *GetHelperPVR()   { return m_helperPVR; }
+  CAddonCallbacksVOIP  *GetHelperVOIP()  { return m_helperVOIP; }
 private:
   AddonCB             *m_callbacks;
   CAddon              *m_addon;
   CAddonCallbacksAddon *m_helperAddon;
   CAddonCallbacksGUI   *m_helperGUI;
   CAddonCallbacksPVR   *m_helperPVR;
+  CAddonCallbacksVOIP  *m_helperVOIP;
 };
 
 }; /* namespace ADDON */

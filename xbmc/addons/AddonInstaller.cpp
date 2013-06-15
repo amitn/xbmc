@@ -42,6 +42,7 @@
 #include "dialogs/GUIDialogProgress.h"
 #include "URL.h"
 #include "pvr/PVRManager.h"
+#include "voip/VOIPManager.h"
 
 using namespace std;
 using namespace XFILE;
